@@ -6,8 +6,17 @@ import OrganizationList from './components/OrganizationList';
 import VotingPage from './components/VotingPage';
 import AdminDashboard from './components/AdminDashboard';
 
-// UPDATE THIS WITH YOUR ACTUAL DEPLOYED CONTRACT ADDRESS
-const CONTRACT_ADDRESS = "YOUR_DEPLOYED_CONTRACT_ADDRESS_HERE"; // Replace after deployment
+// Import contract address from auto-generated config
+// This file is created when you deploy the contract
+let CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3"; // Default Hardhat first deployment address
+
+try {
+  const config = await import('./contractConfig.js');
+  CONTRACT_ADDRESS = config.CONTRACT_ADDRESS;
+} catch (error) {
+  console.warn('⚠️ contractConfig.js not found. Using default address. Please deploy the contract first.');
+  console.warn('Run: cd backend && npm run deploy');
+}
 
 const CONTRACT_ABI = [
   "function owner() view returns (address)",
